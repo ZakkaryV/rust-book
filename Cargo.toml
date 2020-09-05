@@ -1,0 +1,16 @@
+[package]
+name = "rust-book-exercises"
+version = "0.1.0"
+authors = ["Zakkary Verrilli <zakkaryv@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+termion = "*"
+
+[lib]
+name = "mylib"
+path = "src/lib.rs"
+
+# [[bin]]
+# name = "mybin"
+# path = "src/main.rs"
