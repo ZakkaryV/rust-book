@@ -1,5 +1,5 @@
-mod calculate {
-    use super::util::selection_sort_int;
+pub mod calculate {
+    use crate::util::selection_sort_int;
     use std::collections::HashMap;
 
     pub fn mean(list: &[i32]) -> f32 {
@@ -34,40 +34,7 @@ mod calculate {
     }
 }
 
-pub mod util {
-    use std::cmp::Ordering;
-
-    pub fn selection_sort_int(v: &mut [i32]) -> &[i32] {
-        let len = v.len();
-
-        for i in 0..len {
-            let mut lowest = i;
-
-            for j in (i + 1)..len {
-                if let Ordering::Less = v[j].cmp(&v[lowest]) {
-                    lowest = j;
-                }
-            }
-
-            v.swap(i, lowest);
-        }
-
-        v
-    }
-
-    pub fn selection_sort_str(v: &mut [String]) -> &[String] {
-        // 1. convert to lowercase
-        for n in v.iter() {
-            // for ch in n.chars() {
-            //     println!("n: {}", n.decode_utf8);
-            // }
-        }
-
-        v
-    }
-}
-
-mod pig_latin {
+pub mod pig_latin {
     use std::collections::HashSet;
 
     enum CharacterType {
@@ -149,19 +116,6 @@ mod pig_latin {
         }
 
         pl_s.join(" ") //.trim();
-    }
-}
-
-#[cfg(test)]
-mod sorting {
-    use super::util::selection_sort_int;
-
-    #[test]
-    fn selection() {
-        let mut unsorted_arr = vec![7, 6, 5, 4, 3, 2, 1];
-        let result = [1, 2, 3, 4, 5, 6, 7];
-
-        assert_eq!(selection_sort_int(&mut unsorted_arr), &result);
     }
 }
 

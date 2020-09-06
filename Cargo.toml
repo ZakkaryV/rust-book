@@ -8,9 +8,5 @@ edition = "2018"
 termion = "*"
 
 [lib]
-name = "mylib"
-path = "src/lib.rs"
-
-# [[bin]]
-# name = "mybin"
-# path = "src/main.rs"
+name = "lib"
+path = "src/lib/lib.rs"

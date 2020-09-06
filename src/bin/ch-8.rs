@@ -2,7 +2,6 @@ use company::{Company, Operations};
 use std::io::stdin;
 
 mod company {
-    use mylib::util::selection_sort_str;
     use std::collections::HashMap;
 
     #[derive(Debug)]
@@ -87,7 +86,6 @@ mod company {
         pub fn get_sorted(&mut self, department: String) -> Option<Vec<String>> {
             let list = self.departments.get_mut(&department);
             if let Some(vec) = list {
-                // Some(selection_sort_str(&mut vec[..]));
                 vec.sort_by(|a, b| a.to_lowercase().cmp(&b.to_lowercase()));
                 Some(vec.clone())
             } else {
