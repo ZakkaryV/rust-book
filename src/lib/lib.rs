@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 mod ch_8;
 pub use ch_8::{calculate, pig_latin};
 
