@@ -31,12 +31,12 @@ fn main() {
     // let list_char = vec!['a', 'z', 'b', 'y', 'c'];
     // println!("Largest character: {}", largest(&list_char));
 
-    let pt1 = Point { x: 10, y: 'c' };
-    let pt2 = Point {
-        x: "Hi!!!!",
-        y: 6.66,
-    };
+    // let pt1 = Point { x: 10, y: 'c' };
+    // let pt2 = Point {
+    //     x: "Hi!!!!",
+    //     y: 6.66,
+    // };
 
-    let pt3 = pt1.mixup(pt2);
-    println!("pt3: {:?}", pt3);
+    // let pt3 = pt1.mixup(pt2);
+    // println!("pt3: {:?}", pt3);
 }
