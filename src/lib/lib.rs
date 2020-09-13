@@ -13,7 +13,7 @@ mod ch_10;
 pub use ch_10::content;
 
 mod ch_11;
-pub use ch_11::adder;
+pub use ch_11::greeter;
 
 mod util;
 pub use util::*;

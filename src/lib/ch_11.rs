@@ -1,4 +1,5 @@
-pub fn adder(i: i32, n: i32) -> i32 {
+// not public... but still testable!
+fn adder(i: i32, n: i32) -> i32 {
     i + n
 }
 
@@ -9,11 +10,17 @@ pub fn greeter(name: &str) -> String {
 #[cfg(test)]
 mod adder {
     use super::*;
-    use rand::thread_rng;
+    use rand::prelude::*;
 
     #[test]
     fn adder_adds() {
         assert_eq!(5, adder(2, 3));
+    }
+
+    #[test]
+    #[ignore]
+    fn two_plus_two() {
+        assert_eq!(4, adder(2, 2));
     }
 
     #[test]
@@ -32,15 +39,15 @@ mod adder {
         assert!(greeting.contains("Zakk"));
     }
 
-    // #[test]
-    // fn flakey_test() {
-    //     let mut rng = thread_rng();
-    //     let rand: f64 = rng.gen();
+    #[test]
+    fn flakey_test() -> Result<(), String> {
+        let mut rng = rand::thread_rng();
+        let rand: f64 = rng.gen();
 
-    //     if rand > 0.5 {
-    //         assert!("Heads!")
-    //     } else {
-    //         panic!("Tails!")
-    //     }
-    // }
+        if rand > 0.5 {
+            Ok(())
+        } else {
+            Err("Tails!".to_string())
+        }
+    }
 }
