@@ -73,13 +73,13 @@ pub mod content {
 
 mod point {
     #[derive(Debug)]
-    pub struct Point<T, U> {
-        pub x: T,
-        pub y: U,
+    pub struct Point<'a, T, U> {
+        pub x: &'a T,
+        pub y: &'a U,
     }
 
-    impl<T, U> Point<T, U> {
-        pub fn mixup<V, W>(self, pt: Point<V, W>) -> Point<T, W> {
+    impl<'a, T, U> Point<'a, T, U> {
+        pub fn mixup<V, W>(self, pt: Point<'a, V, W>) -> Point<T, W> {
             Point { x: self.x, y: pt.y }
         }
     }
@@ -97,9 +97,20 @@ mod point {
     }
 }
 
+mod lifetimes {
+    pub fn longest<'a>(str1: &'a str, str2: &'a str) -> &'a str {
+        if str1.len() > str2.len() {
+            str1
+        } else {
+            str2
+        }
+    }
+}
+
 #[cfg(test)]
 mod traits {
     use super::content::{notify, NewsArticle, Summary, Tweet};
+    use super::lifetimes::longest;
     use super::point::{largest, Point};
 
     #[test]
@@ -172,14 +183,25 @@ mod traits {
 
     #[test]
     fn point_mixes() {
-        let pt1 = Point { x: 10, y: 'c' };
-        let pt2 = Point {
-            x: "Hi!!!!",
-            y: 6.66,
-        };
+        let x1 = 10;
+        let y1 = 'c';
+        let x2 = "Hi!!!!";
+        let y2 = 6.66;
+
+        // Points point to pointers
+        let pt1 = Point { x: &x1, y: &y1 };
+        let pt2 = Point { x: &x2, y: &y2 };
+
         let pt3 = pt1.mixup(pt2);
 
-        assert_eq!(10, pt3.x);
-        assert_eq!(6.66, pt3.y);
+        assert_eq!(&x1, pt3.x);
+        assert_eq!(&y2, pt3.y);
+    }
+
+    fn longest_of_references() {
+        let str1 = String::from("Hai");
+        let str2 = "guise";
+
+        assert_eq!(longest(&str1, &str2), str2);
     }
 }

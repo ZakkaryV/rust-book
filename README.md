@@ -10,9 +10,7 @@ which employees can be added to. You can retreive an alphabetically sorted list 
 
 `cargo run --bin ch_10`  
 
-`cargo test --quiet`  
-Quiet to bypass unused code warnings in `lib`.
-
+`cargo test`  
 test ch_8::math::calculate_median ... ok  
 test ch_8::math::calculate_mode ... ok  
 test ch_8::math::calculate_mean ... ok  
@@ -22,4 +20,5 @@ test ch_10::traits::return_generic_largest ... ok
 test ch_10::traits::summarize_trait ... ok  
 test ch_10::traits::summarize_trait_default_impl ... ok  
 test ch_10::traits::trait_bounds_and_parameters ... ok  
+test ch_10::traits::return_generic_largest ... ok  
 test util::sorting::selection ... ok  
