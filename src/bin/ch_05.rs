@@ -1,32 +1,5 @@
-use std::cmp::Ordering;
+use lib::Rectangle;
 use std::io;
-
-#[derive(Debug)]
-pub struct Rectangle {
-    pub height: u32,
-    pub width: u32,
-}
-
-impl Rectangle {
-    pub fn area(&self) -> u32 {
-        self.height * self.width
-    }
-
-    pub fn can_hold(&self, other: &Rectangle) -> bool {
-        self.width > other.width && self.height > other.height
-    }
-
-    pub fn is_valid_rectangle(&self) -> bool {
-        match self.height.cmp(&self.width) {
-            Ordering::Less => true,
-            Ordering::Equal => {
-                println!("\nEnter the dimensions for a rectangle, not a square!");
-                std::process::exit(1)
-            }
-            Ordering::Greater => true,
-        }
-    }
-}
 
 fn main() {
     let dimension_specifiers = (String::from("height"), String::from("width"));
