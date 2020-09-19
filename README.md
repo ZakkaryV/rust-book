@@ -1,17 +1,20 @@
 # Rust Book exercises
 Learning how 2 Rust with [The Book™](https://doc.rust-lang.org/stable/book/)!   
 
-`cargo run --bin ch_05`  
+`cargo run --bin ch_05_rectangles`  
 Create `Rectangle` structs with methods that operate on their own instance. Enter the dimensions for two rectangles and learn if the second `Rectangle` fits into the first.
 
-`cargo run --bin ch_08`  
+`cargo run --bin ch_08_company`  
 Interactive company directory program from the end of chapter 8. Demonstrates collections such as `Vec`, `HashMap` to store user input. Prompts you to create a new `Company` where you can create departments 
 which employees can be added to. You can retreive an alphabetically sorted list of employee names per department.
+
+`cargo run --bin ch_12_minigrep "!" ~/Projects/rust-book/poem.txt`
+Run the grep clone binary. First argument is the search query, second is the file to search. 
 
 ```
 > cargo test
 
-running 17 tests
+running 19 tests
 test ch_05::tests::larger_can_hold_smaller ... ok  
 test ch_05::tests::smaller_can_hold_larger ... ok  
 test ch_08::math::calculate_mean ... ok  
@@ -29,6 +32,8 @@ test ch_11::adder::two_plus_two ... ignored
 test ch_11::adder::flakey_test ... FAILED  
 test ch_11::adder::greeter_greets ... ok  
 test ch_11::adder::test_returns_result ... ok  
+test ch_12::minigrep_tests::one_result ... ok
+test ch_12::minigrep_tests::multiple_results ... ok
 test util::sorting::selection ... ok  
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d

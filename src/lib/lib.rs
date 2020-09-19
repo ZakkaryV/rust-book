@@ -15,5 +15,8 @@ pub use ch_10::content;
 mod ch_11;
 pub use ch_11::greeter;
 
+mod ch_12;
+pub use ch_12::minigrep;
+
 mod util;
 pub use util::*;
