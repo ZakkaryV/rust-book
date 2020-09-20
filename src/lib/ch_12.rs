@@ -33,6 +33,18 @@ pub mod minigrep {
         result
     }
 
+    pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+        let mut result: Vec<&'a str> = Vec::new();
+
+        for line in contents.lines() {
+            if line.to_lowercase().contains(&query.to_lowercase()) {
+                result.push(line);
+            }
+        }
+
+        result
+    }
+
     pub fn run(config: Config) -> Result<(), Box<dyn std::error::Error>> {
         let contents = fs::read_to_string(config.filename)?;
 
@@ -74,5 +86,18 @@ Pick three.";
             ],
             minigrep::search(&query, &contents)
         )
+    }
+
+    #[test]
+    fn searches_case_insensitive() {
+        let query = "LazY dOg";
+        let contents = "tHe QuIcK bRoWn\
+FoX jUmPs OvEr
+ThE lAzY dOg";
+
+        assert_eq!(
+            vec!["ThE lAzY dOg"],
+            minigrep::search_case_insensitive(&query, &contents)
+        );
     }
 }
