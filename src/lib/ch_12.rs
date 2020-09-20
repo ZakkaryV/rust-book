@@ -4,14 +4,28 @@ pub mod minigrep {
     pub struct Config {
         pub query: String,
         pub filename: String,
+        pub case_sensitive: bool,
     }
 
     impl Config {
-        pub fn new(args: &[String]) -> Result<Config, &'static str> {
-            if !(args.len() < 3) {
+        pub fn new(args: &[String]) -> Result<Config, &str> {
+            let flag_abbreviations: std::collections::HashMap<String, String> =
+                [("-c".to_string(), "--case-insensitive".to_string())]
+                    .iter()
+                    .cloned()
+                    .collect();
+            let (filtered_args, flags) = split_args(args, flag_abbreviations);
+
+            if !(filtered_args.len() < 3) {
+                let case_sensitive: bool = match flags.get("--case-insensitive") {
+                    Some(_) => false,
+                    None => std::env::var("CASE_INSENSITIVE").is_err(),
+                };
+
                 Ok(Config {
-                    query: args[1].clone(),
-                    filename: args[2].clone(),
+                    query: filtered_args[1].to_owned(),
+                    filename: filtered_args[2].to_owned(),
+                    case_sensitive,
                 })
             } else {
                 std::result::Result::Err("Wrong number of arguments specified!")
@@ -19,9 +33,37 @@ pub mod minigrep {
         }
     }
 
+    fn split_args<'a>(
+        args: &[String],
+        flag_abbreviations: std::collections::HashMap<String, String>,
+    ) -> (Vec<&str>, std::collections::HashMap<String, bool>) {
+        let mut i = 0;
+        let mut filtered_args: Vec<&str> = Vec::new();
+        let mut flags: std::collections::HashMap<String, bool> = std::collections::HashMap::new();
+
+        while i < args.len() {
+            if args[i].starts_with("-") {
+                match flag_abbreviations.get(&args[i]) {
+                    Some(full) => {
+                        flags.insert(full.to_owned(), true);
+                    }
+                    None => {
+                        flags.insert(args[i].to_owned(), true);
+                    }
+                };
+            } else {
+                filtered_args.push(&args[i]);
+            }
+
+            i = i + 1;
+        }
+
+        (filtered_args, flags)
+    }
+
     // because both args to search are references we must explicitly declare that the return types
     // reference belongs to one or the other, Rust cannot infer this
-    pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    pub fn search_case_sensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
         // parse contents line by line, push any line containing the substring to the result vec
         let mut result: Vec<&'a str> = Vec::new();
         for line in contents.lines() {
@@ -48,7 +90,13 @@ pub mod minigrep {
     pub fn run(config: Config) -> Result<(), Box<dyn std::error::Error>> {
         let contents = fs::read_to_string(config.filename)?;
 
-        for line in search(&config.query, &contents).iter() {
+        let results = if config.case_sensitive {
+            search_case_sensitive(&config.query, &contents)
+        } else {
+            search_case_insensitive(&config.query, &contents)
+        };
+
+        for line in results.iter() {
             println!("{}", line);
         }
 
@@ -70,7 +118,7 @@ Pick three.";
 
         assert_eq!(
             vec!["safe, fast, productive."],
-            minigrep::search(query, contents)
+            minigrep::search_case_sensitive(query, contents)
         );
     }
 
@@ -84,7 +132,7 @@ Pick three.";
                 "Then there’s a pair of us - don’t tell!",
                 "To tell your name the livelong day",
             ],
-            minigrep::search(&query, &contents)
+            minigrep::search_case_sensitive(&query, &contents)
         )
     }
 

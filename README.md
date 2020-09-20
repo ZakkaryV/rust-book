@@ -1,16 +1,28 @@
 # Rust Book exercises
 Learning how 2 Rust with [The Book™](https://doc.rust-lang.org/stable/book/)!   
 
+### Ch. 05
 `cargo run --bin ch_05_rectangles`  
 Create `Rectangle` structs with methods that operate on their own instance. Enter the dimensions for two rectangles and learn if the second `Rectangle` fits into the first.
 
+### Ch. 08
 `cargo run --bin ch_08_company`  
 Interactive company directory program from the end of chapter 8. Demonstrates collections such as `Vec`, `HashMap` to store user input. Prompts you to create a new `Company` where you can create departments 
 which employees can be added to. You can retreive an alphabetically sorted list of employee names per department.
 
+### Ch. 12
 `cargo run --bin ch_12_minigrep "!" ~/Projects/rust-book/poem.txt`
 Run the grep clone binary. First argument is the search query, second is the file to search. 
 
+`cargo run --bin ch_12_minigrep "somEbOdY" --case-insensetive  ~/Projects/rust-book/poem.txt`
+`                                          ^^^^^^^^^^^^^^^^^^`
+Minigrep is case-sensitive by default. Pass the `--case-insensetive` flag (or `-c` for short) to perform case-insensetive search..
+
+`CASE_INSENSITIVE=1 cargo run --bin ch_12_minigrep "to" ~/Projects/rust-book/poem.txt`
+`^^^^^^^^^^^^^^^^^^`
+Alernatively the `CASE_INSENSITIVE` env var will be checked to determine search case sensetivity. Flags take precendence.
+
+### Unit / integration tests
 ```
 > cargo test
 
@@ -34,6 +46,7 @@ test ch_11::adder::greeter_greets ... ok
 test ch_11::adder::test_returns_result ... ok  
 test ch_12::minigrep_tests::one_result ... ok
 test ch_12::minigrep_tests::multiple_results ... ok
+test ch_12::minigrep_tests::searches_case_insensitive ... ok
 test util::sorting::selection ... ok  
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d

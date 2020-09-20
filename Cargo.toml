@@ -11,3 +11,6 @@ rand = "*"
 [lib]
 name = "lib"
 path = "src/lib/lib.rs"
+
+[unstable]
+drain-filter = "yes"
