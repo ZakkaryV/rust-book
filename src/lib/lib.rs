@@ -18,5 +18,8 @@ pub use ch_11::greeter;
 mod ch_12;
 pub use ch_12::minigrep;
 
+mod ch_13;
+pub use ch_13::custom_workout_builder;
+
 mod util;
 pub use util::*;

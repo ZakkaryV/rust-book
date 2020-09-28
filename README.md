@@ -53,12 +53,13 @@ test ch_10::traits::summarize_trait_default_impl ... ok
 test ch_10::traits::trait_bounds_and_parameters ... ok  
 test ch_11::adder::adder_adds ... ok  
 test ch_11::adder::two_plus_two ... ignored  
-test ch_11::adder::flakey_test ... FAILED <------------------ might have to try this one a few times
+test ch_11::adder::flakey_test ... FAILED <-------------- might have to try this one a few times
 test ch_11::adder::greeter_greets ... ok  
 test ch_11::adder::test_returns_result ... ok  
 test ch_12::minigrep_tests::one_result ... ok
 test ch_12::minigrep_tests::multiple_results ... ok
 test ch_12::minigrep_tests::searches_case_insensitive ... ok
+test ch_13::closures::expensive_function ... ok
 test util::sorting::selection ... ok  
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d
