@@ -60,6 +60,9 @@ test ch_12::minigrep_tests::one_result ... ok
 test ch_12::minigrep_tests::multiple_results ... ok
 test ch_12::minigrep_tests::searches_case_insensitive ... ok
 test ch_13::closures::expensive_function ... ok
+test ch_13::custom_workout_builder::closure_owns_its_env ... ok
+test ch_13::custom_workout_builder::cacher_caches ... ok
+test ch_13::custom_workout_builder::cacher_ops_on_generic_closures ... FAILED <-- bypassed bc I can't figure out how to make explicity typed closures use generics :( 
 test util::sorting::selection ... ok  
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d
