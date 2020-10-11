@@ -8,22 +8,49 @@ pub mod custom_workout_builder {
     //     intensity
     // }
 
+    pub struct Cacher<T: Fn(u32) -> u32> {
+        calculation: T,
+        value: Option<u32>,
+    }
+
+    impl<T: Fn(u32) -> u32> Cacher<T> {
+        fn new(closure: T) -> Cacher<T> {
+            Cacher {
+                calculation: closure,
+                value: None,
+            }
+        }
+
+        fn value(&mut self, arg: u32) -> u32 {
+            match self.value {
+                Some(v) => v,
+                None => {
+                    let result = (self.calculation)(arg);
+                    self.value = Some(result);
+                    result
+                }
+            }
+        }
+    }
+    // Cacher::new(|| )
+
     pub fn generate_workout(intensity: u32, random_number: u32) -> String {
-        let _prescription = |intensity| {
+        let mut expensive_result = Cacher::new(|intensity| {
             println!("Calculating slowly...");
             thread::sleep(Duration::from_secs(2));
             intensity
-        };
-
-        let prescription = _prescription(intensity);
+        });
 
         if intensity > 25 {
-            format!("Next do {} crunches!", prescription)
+            format!("Next do {} crunches!", expensive_result.value(intensity))
         } else {
             if random_number == 3 {
                 format!("Take a break today, you don't need to work out.")
             } else {
-                format!("Today will be {} minutes of cardio!", prescription)
+                format!(
+                    "Today will be {} minutes of cardio!",
+                    expensive_result.value(intensity)
+                )
             }
         }
     }
