@@ -14,14 +14,14 @@ pub mod custom_workout_builder {
     }
 
     impl<T: Fn(u32) -> u32> Cacher<T> {
-        fn new(closure: T) -> Cacher<T> {
+        pub fn new(closure: T) -> Cacher<T> {
             Cacher {
                 calculation: closure,
                 value: None,
             }
         }
 
-        fn value(&mut self, arg: u32) -> u32 {
+        pub fn value(&mut self, arg: u32) -> u32 {
             match self.value {
                 Some(v) => v,
                 None => {
@@ -53,6 +53,13 @@ pub mod custom_workout_builder {
                 )
             }
         }
+    }
+
+    #[test]
+    fn cacher_caches() {
+        let mut cacher = Cacher::new(|val| val + 1234 as u32);
+        cacher.value(1111);
+        assert_eq!(2345, cacher.value(1111))
     }
 }
 
