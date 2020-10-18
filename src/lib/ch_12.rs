@@ -8,57 +8,67 @@ pub mod minigrep {
     }
 
     impl Config {
-        pub fn new(args: &[String]) -> Result<Config, &str> {
+        pub fn new(args: std::env::Args) -> Result<Config, &'static str> {
             let flag_abbreviations: std::collections::HashMap<String, String> =
                 [("-c".to_string(), "--case-insensitive".to_string())]
                     .iter()
                     .cloned()
                     .collect();
-            let (filtered_args, flags) = split_args(args, flag_abbreviations);
+            let (mut filtered_args, flags) = split_args(args, flag_abbreviations);
 
-            if !(filtered_args.len() < 3) {
-                let case_sensitive: bool = match flags.get("--case-insensitive") {
-                    Some(_) => false,
-                    None => std::env::var("CASE_INSENSITIVE").is_err(),
-                };
+            let query = match filtered_args.next() {
+                Some(q) => q,
+                None => return std::result::Result::Err("You didn't enter a search query!"),
+            };
 
-                Ok(Config {
-                    query: filtered_args[1].to_owned(),
-                    filename: filtered_args[2].to_owned(),
-                    case_sensitive,
-                })
-            } else {
-                std::result::Result::Err("Wrong number of arguments specified!")
-            }
+            let filename = match filtered_args.next() {
+                Some(f) => f,
+                None => {
+                    return std::result::Result::Err("You didn't enter a filename to search in!")
+                }
+            };
+
+            let case_sensitive: bool = match flags.get("--case-insensitive") {
+                Some(_) => false,
+                None => std::env::var("CASE_INSENSITIVE").is_err(),
+            };
+
+            Ok(Config {
+                query,
+                filename,
+                case_sensitive,
+            })
         }
     }
 
     fn split_args<'a>(
-        args: &[String],
+        args: std::env::Args,
         flag_abbreviations: std::collections::HashMap<String, String>,
-    ) -> (Vec<&str>, std::collections::HashMap<String, bool>) {
-        let mut i = 0;
-        let mut filtered_args: Vec<&str> = Vec::new();
+    ) -> (
+        std::vec::IntoIter<String>,
+        std::collections::HashMap<String, bool>,
+    ) {
+        let mut filtered_args: Vec<String> = Vec::new();
         let mut flags: std::collections::HashMap<String, bool> = std::collections::HashMap::new();
 
-        while i < args.len() {
-            if args[i].starts_with("-") {
-                match flag_abbreviations.get(&args[i]) {
-                    Some(full) => {
-                        flags.insert(full.to_owned(), true);
-                    }
-                    None => {
-                        flags.insert(args[i].to_owned(), true);
-                    }
-                };
-            } else {
-                filtered_args.push(&args[i]);
+        args.enumerate().for_each(|(index, arg)| {
+            if index != 0 {
+                if arg.starts_with("-") {
+                    match flag_abbreviations.get(&arg) {
+                        Some(full) => {
+                            flags.insert(full.clone(), true);
+                        }
+                        None => {
+                            flags.insert(arg, true);
+                        }
+                    };
+                } else {
+                    filtered_args.push(arg);
+                }
             }
+        });
 
-            i = i + 1;
-        }
-
-        (filtered_args, flags)
+        (filtered_args.into_iter(), flags)
     }
 
     // because both args to search are references we must explicitly declare that the return types

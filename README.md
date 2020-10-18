@@ -18,18 +18,18 @@ cargo run --bin ch_08_company
 ### Ch. 12: An I/O Project: Building a Command Line Program
 Run the grep clone binary. First argument is the search query, second is the file to search.  
 ```
-cargo run --bin ch_12_minigrep "!" ~/Projects/rust-book/poem.txt
+cargo run --bin ch_12_minigrep "to" ./poem.txt
 ```
 
 Minigrep is case-sensitive by default. Pass the `--case-insensitive` flag (or `-c` for short) to perform case-insensitive search.
 ```
-cargo run --bin ch_12_minigrep "somEbOdY" --case-insensitive  ~/Projects/rust-book/poem.txt
+cargo run --bin ch_12_minigrep "somEbOdY" --case-insensitive  ./poem.txt
                                           ^^^^^^^^^^^^^^^^^^ 
 ```
 
 Alernatively the `CASE_INSENSITIVE` env var will be checked to determine search case sensetivity setting. Flags take precendence.  
 ```
-CASE_INSENSITIVE=1 cargo run --bin ch_12_minigrep "to" ~/Projects/rust-book/poem.txt
+CASE_INSENSITIVE=1 cargo run --bin ch_12_minigrep "to" ./poem.txt
 ^^^^^^^^^^^^^^^^^^
 ```
 
