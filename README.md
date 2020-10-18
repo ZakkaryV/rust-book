@@ -38,7 +38,8 @@ Run the unit and integration tests.
 ```
 cargo test
 
-running 19 tests
+running 29 tests
+test util::sorting::selection ... ok  
 test ch_05::tests::larger_can_hold_smaller ... ok  
 test ch_05::tests::smaller_can_hold_larger ... ok  
 test ch_08::math::calculate_mean ... ok  
@@ -63,7 +64,11 @@ test ch_13::closures::expensive_function ... ok
 test ch_13::custom_workout_builder::closure_owns_its_env ... ok
 test ch_13::custom_workout_builder::cacher_caches ... ok
 test ch_13::custom_workout_builder::cacher_ops_on_generic_closures ... FAILED <-- bypassed bc I can't figure out how to make explicity typed closures use generics :( 
-test util::sorting::selection ... ok  
+test ch_13::custom_workout_builder::iterator_adapters ... ok
+test ch_13::custom_workout_builder::iterators_iterate ... ok
+test ch_13::custom_workout_builder::iterators_sum ... ok
+test ch_13::custom_iterator::counter_counts ... ok
+test ch_13::custom_iterator::chaining_myriad_iterator_methods ... ok
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d
 

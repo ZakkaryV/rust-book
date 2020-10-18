@@ -85,6 +85,92 @@ pub mod custom_workout_builder {
 
         assert_eq!(6, do_stuff(anon, 1));
     }
+
+    #[test]
+    fn iterators_iterate() {
+        // Vec implements std::iter::Iter
+        let list = vec!['a', 'b', 'c'];
+
+        // iterators must be mutable because their internal state is updated on each next call,
+        // therefor iterators are consumed upon their call
+        let mut iterable = list.iter();
+
+        assert_eq!(&list[0], iterable.next().unwrap());
+        assert_eq!(&list[1], iterable.next().unwrap());
+        assert_eq!(&list[2], iterable.next().unwrap());
+        assert_eq!(None, iterable.next());
+    }
+
+    #[test]
+    fn iterators_sum() {
+        let nums = vec![5, 10, 20];
+        let nums_iter = nums.iter();
+        // sum() takes ownership of nums_iter: we would not be able to call this a second time
+        let sum: i32 = nums_iter.sum();
+
+        assert_eq!(35, sum);
+    }
+
+    #[test]
+    fn iterator_adapters() {
+        let v_1: Vec<i32> = vec![1, 2, 3];
+        // unlike sum, who consumes iterators, map returns a new iterator, also LAZY
+        // (closure evocation is delayed until the call to .collect)
+        let v_2 = v_1.iter().map(|x| x + 1);
+
+        assert_eq!(vec![2, 3, 4], v_2.collect::<Vec<i32>>());
+    }
+}
+
+pub mod custom_iterator {
+    struct Counter {
+        count: u32,
+    }
+
+    impl Counter {
+        fn new() -> Counter {
+            Counter { count: 0 }
+        }
+    }
+
+    impl Iterator for Counter {
+        type Item = u32;
+
+        fn next(&mut self) -> Option<Self::Item> {
+            if self.count < 5 {
+                self.count += 1;
+                Some(self.count)
+            } else {
+                None
+            }
+        }
+    }
+
+    #[test]
+    fn counter_counts() {
+        // only counts to five
+        let mut c = Counter::new();
+
+        assert_eq!(Some(1), c.next());
+        assert_eq!(Some(2), c.next());
+        assert_eq!(Some(3), c.next());
+        assert_eq!(Some(4), c.next());
+        assert_eq!(Some(5), c.next());
+        assert_eq!(None, c.next());
+    }
+
+    #[test]
+    fn chaining_myriad_iterator_methods() {
+        // the type annotation is important here, otherwise Iterator can't
+        // know which trait implementation to use
+        let sum: u32 = Counter::new()
+            .zip(Counter::new().skip(1))
+            .map(|(a, b)| a * b)
+            .filter(|x| x % 3 == 0)
+            .sum();
+
+        assert_eq!(18, sum);
+    }
 }
 
 #[cfg(test)]
