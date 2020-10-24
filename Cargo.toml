@@ -14,3 +14,11 @@ path = "src/lib/lib.rs"
 
 [unstable]
 drain-filter = "yes"
+
+# these are the default opt-levels for their respsective release profiles
+# more optimizations = slower compile time = faster run time
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3

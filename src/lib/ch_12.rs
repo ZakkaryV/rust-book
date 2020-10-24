@@ -71,8 +71,16 @@ pub mod minigrep {
         (filtered_args.into_iter(), flags)
     }
 
-    // because both args to search are references we must explicitly declare that the return types
-    // reference belongs to one or the other, Rust cannot infer this
+    /// Return a filtered list of `contents` substrings  containing `query`.
+    /// Case is considered.
+    ///
+    /// # Example
+    /// ```
+    /// let contents = "Hello\nworld!";
+    /// let query = "!";
+    ///
+    /// assert_eq!(vec!["world!"], crate::lib::minigrep::search_case_insensitive("!", &contents));
+    /// ```
     pub fn search_case_sensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
         // parse contents line by line, push any line containing the substring to the result vec
         // let mut result: Vec<&'a str> = Vec::new();
@@ -83,6 +91,12 @@ pub mod minigrep {
         // }
 
         // result
+        //
+        // On iterator vs imperative patterns:
+        // "It’s a bit tougher to get the hang of at first, but once you get a feel for the various
+        // iterator adaptors and what they do, iterators can be easier to understand."
+        //
+        // lol
 
         contents
             .lines()
@@ -90,6 +104,16 @@ pub mod minigrep {
             .collect()
     }
 
+    /// Return a filtered list of `contents` substrings  containing `query`.
+    /// Case is ignored.
+    ///
+    /// # Example
+    /// ```
+    /// let contents = "Hello\nworld!";
+    /// let query = "WoRlD";
+    ///
+    /// assert_eq!(vec!["world!"], crate::lib::minigrep::search_case_insensitive("!", &contents));
+    /// ```
     pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
         // let mut result: Vec<&'a str> = Vec::new();
 
