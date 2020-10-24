@@ -75,14 +75,19 @@ pub mod minigrep {
     // reference belongs to one or the other, Rust cannot infer this
     pub fn search_case_sensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
         // parse contents line by line, push any line containing the substring to the result vec
-        let mut result: Vec<&'a str> = Vec::new();
-        for line in contents.lines() {
-            if line.contains(query) {
-                result.push(line);
-            }
-        }
+        // let mut result: Vec<&'a str> = Vec::new();
+        // for line in contents.lines() {
+        //     if line.contains(query) {
+        //         result.push(line);
+        //     }
+        // }
 
-        result
+        // result
+
+        contents
+            .lines()
+            .filter(|line| line.contains(&query))
+            .collect()
     }
 
     pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
