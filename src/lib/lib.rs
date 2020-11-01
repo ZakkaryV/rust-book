@@ -1,5 +1,10 @@
 #![allow(dead_code)]
 
+//! # Rust Book Exercises
+//!
+//! A barrel of modules demonstrating basic Rust lang functionality. Some of them are used in this
+//! Crate's binary programs.
+
 mod ch_05;
 pub use ch_05::Rectangle;
 
@@ -20,6 +25,9 @@ pub use ch_12::minigrep;
 
 mod ch_13;
 pub use ch_13::custom_workout_builder;
+
+mod ch_14;
+pub use ch_14::*;
 
 mod util;
 pub use util::*;

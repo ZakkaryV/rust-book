@@ -1,7 +1,7 @@
 [package]
-name = "rust-book-exercises"
+name = "rust_book_exercises"
 version = "0.1.0"
-authors = ["Zakkary Verrilli <zakkaryv@gmail.com>"]
+authors = ["Zakkary Verrilli <zverrilli@protonmail.com>"]
 edition = "2018"
 
 [dependencies]

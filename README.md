@@ -76,8 +76,9 @@ running 1 test
 test sort_vec_ascending ... ok
 
 // documentation tests
-running 2 tests
+running 3 tests
 test src/lib/ch_12.rs - ch_12::minigrep::search_case_insensitive (line 111) ... ok
 test src/lib/ch_12.rs - ch_12::minigrep::search_case_sensitive (line 78) ... ok
+test src/lib/ch_14.rs - ch_14::art::utils::mix (line 27) ... ok
 
 ```
