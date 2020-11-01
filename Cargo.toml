@@ -3,6 +3,8 @@ name = "rust_book_exercises"
 version = "0.1.0"
 authors = ["Zakkary Verrilli <zverrilli@protonmail.com>"]
 edition = "2018"
+license = "MIT"
+description = "An organized grouping of the various practice exercises found in The Rust Programming Language."
 
 [dependencies]
 termion = "*"
