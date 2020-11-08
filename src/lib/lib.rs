@@ -29,5 +29,8 @@ pub use ch_13::custom_workout_builder;
 mod ch_14;
 pub use ch_14::*;
 
+mod ch_15;
+pub use ch_15::*;
+
 mod util;
 pub use util::*;

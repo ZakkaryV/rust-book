@@ -69,6 +69,8 @@ test ch_13::custom_workout_builder::iterators_iterate ... ok
 test ch_13::custom_workout_builder::iterators_sum ... ok
 test ch_13::custom_iterator::counter_counts ... ok
 test ch_13::custom_iterator::chaining_myriad_iterator_methods ... ok
+test ch_15::smart_pointers::deref_is_sometimes_necessary ... ok
+test ch_15::smart_pointers::deref_works_with_box ... ok
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d
 
