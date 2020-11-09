@@ -32,6 +32,11 @@ Alernatively the `CASE_INSENSITIVE` env var will be checked to determine search 
 CASE_INSENSITIVE=1 cargo run --bin ch_12_minigrep "to" ./poem.txt
 ^^^^^^^^^^^^^^^^^^
 ```
+### Ch. 15: Smart Pointers
+Demonstrates a custom Smart Pointer (Struct) who implemenents `Drop` and `Deref`. Creates a "recursive list" type that works thanks to `Box`s capability of allocating any value to the heap.  
+```
+cargo run --bin ch_15_smart_pointers
+```
 
 ## Libraries
 Run the unit and integration tests.
@@ -71,6 +76,8 @@ test ch_13::custom_iterator::counter_counts ... ok
 test ch_13::custom_iterator::chaining_myriad_iterator_methods ... ok
 test ch_15::smart_pointers::deref_is_sometimes_necessary ... ok
 test ch_15::smart_pointers::deref_works_with_box ... ok
+test ch_15::smart_pointers::deref_works_with_custom_smart_pointer ... ok
+
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d
 
