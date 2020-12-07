@@ -43,7 +43,7 @@ Run the unit and integration tests.
 ```
 cargo test
 
-running 29 tests
+running 30 tests
 test util::sorting::selection ... ok  
 test ch_05::tests::larger_can_hold_smaller ... ok  
 test ch_05::tests::smaller_can_hold_larger ... ok  
@@ -77,6 +77,7 @@ test ch_13::custom_iterator::chaining_myriad_iterator_methods ... ok
 test ch_15::smart_pointers::deref_is_sometimes_necessary ... ok
 test ch_15::smart_pointers::deref_works_with_box ... ok
 test ch_15::smart_pointers::deref_works_with_custom_smart_pointer ... ok
+test ch_15::smart_pointers::mock_obj_value_has_been_set_once ... ok
 
 
 Running target/debug/deps/integration_test-3d1ca2eca157be7d
