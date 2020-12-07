@@ -85,15 +85,15 @@ pub enum List {
     // time, where Box behaves like a "regular" pointer
     // Cons(i32, Box<List>),
     //
-    Cons(Rc<RefCell<i32>>, Rc<List>),
+    Cons(i32, RefCell<Rc<List>>),
     Nil,
 }
 
 impl List {
-    fn tail(&self) -> Option<&Rc<RefCell<List>>> {
+    pub fn tail(&self) -> Option<&RefCell<Rc<List>>> {
         match self {
             List::Cons(_, val) => Some(val),
-            Nil => None,
+            List::Nil => None,
         }
     }
 }
@@ -103,6 +103,18 @@ impl List {
 //         write!(formatter, "{}", &self.)
 //     }
 // }
+
+pub mod tree {
+    use std::cell::RefCell;
+    use std::rc::{Rc, Weak};
+
+    #[derive(Debug)]
+    pub struct Node {
+        pub val: i32,
+        pub children: RefCell<Vec<Rc<Node>>>,
+        pub parents: RefCell<Weak<Node>>,
+    }
+}
 
 #[cfg(test)]
 mod smart_pointers {

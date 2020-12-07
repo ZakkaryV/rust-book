@@ -33,7 +33,8 @@ CASE_INSENSITIVE=1 cargo run --bin ch_12_minigrep "to" ./poem.txt
 ^^^^^^^^^^^^^^^^^^
 ```
 ### Ch. 15: Smart Pointers
-Demonstrates a custom Smart Pointer (Struct) who implemenents `Drop` and `Deref`. Creates a "recursive list" type that works thanks to `Box`s capability of allocating any value to the heap.  
+Demonstrates a custom Smart Pointer (Struct) who implemenents `Drop` and `Deref`. Creates a recursive list type that works thanks to `Box`s capability of allocating any value to the heap.  
+Smart Pointers `Rc` and `Weak` have associated methods to circumvent reference cycles, a type of memory leak.
 ```
 cargo run --bin ch_15_smart_pointers
 ```
